@@ -16,6 +16,7 @@ namespace Mesen.Controls
 	public class SimpleImageViewer : Control
 	{
 		public static readonly StyledProperty<DynamicBitmap> SourceProperty = AvaloniaProperty.Register<SimpleImageViewer, DynamicBitmap>(nameof(Source));
+		public static readonly StyledProperty<bool> UseBilinearInterpolationProperty = AvaloniaProperty.Register<SimpleImageViewer, bool>(nameof(UseBilinearInterpolation));
 
 		public DynamicBitmap Source
 		{
@@ -23,9 +24,15 @@ namespace Mesen.Controls
 			set { SetValue(SourceProperty, value); }
 		}
 
+		public bool UseBilinearInterpolation
+		{
+			get { return GetValue(UseBilinearInterpolationProperty); }
+			set { SetValue(UseBilinearInterpolationProperty, value); }
+		}
+
 		static SimpleImageViewer()
 		{
-			AffectsRender<SimpleImageViewer>(SourceProperty);
+			AffectsRender<SimpleImageViewer>(SourceProperty, UseBilinearInterpolationProperty);
 		}
 
 		public SimpleImageViewer()
@@ -47,10 +54,12 @@ namespace Mesen.Controls
 
 			private DynamicBitmap _source;
 			private SKBitmap _bitmap;
+			private BitmapInterpolationMode _interpolationMode;
 
 			public DrawOperation(SimpleImageViewer viewer)
 			{
 				Bounds = viewer.Bounds;
+				_interpolationMode = viewer.UseBilinearInterpolation ? BitmapInterpolationMode.HighQuality : BitmapInterpolationMode.None;
 				_source = (DynamicBitmap)viewer.Source;
 				using(var lockedBuffer = ((WriteableBitmap)_source).Lock()) {
 					var info = new SKImageInfo(
@@ -82,10 +91,15 @@ namespace Mesen.Controls
 					int width = (int)(_source.Size.Width);
 					int height = (int)(_source.Size.Height);
 
+					using SKPaint paint = new();
+					paint.Color = new SKColor(255, 255, 255, 255);
+					paint.FilterQuality = _interpolationMode.ToSKFilterQuality();
+
 					using(_source.Lock(true)) {
 						canvas.DrawBitmap(_bitmap,
 							new SKRect(0, 0, (int)_source.Size.Width, (int)_source.Size.Height),
-							new SKRect(0, 0, (float)Bounds.Width, (float)Bounds.Height)
+							new SKRect(0, 0, (float)Bounds.Width, (float)Bounds.Height),
+							paint
 						);
 					}
 				}
