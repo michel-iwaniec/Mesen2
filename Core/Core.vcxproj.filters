@@ -2841,6 +2841,9 @@
     <ClInclude Include="SMS\Input\ColecoVisionController.h">
       <Filter>SMS\Input</Filter>
     </ClInclude>
+    <ClInclude Include="NES\Mappers\Homebrew\gbdk8x8.h">
+      <Filter>NES\Mappers\Homebrew</Filter>
+    </ClInclude>
     <ClInclude Include="WS\WsTypes.h">
       <Filter>WS</Filter>
     </ClInclude>

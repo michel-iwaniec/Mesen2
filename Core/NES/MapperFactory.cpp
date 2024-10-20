@@ -26,6 +26,7 @@
 #include "NES/Mappers/Homebrew/SealieComputing.h"
 #include "NES/Mappers/Homebrew/UnRom512.h"
 #include "NES/Mappers/Homebrew/UnlDripGame.h"
+#include "NES/Mappers/Homebrew/GBDK8x8.h"
 #include "NES/Mappers/Irem/BnRom.h"
 #include "NES/Mappers/Irem/IremG101.h"
 #include "NES/Mappers/Irem/IremH3001.h"
@@ -311,7 +312,7 @@ BaseMapper* MapperFactory::GetMapperFromID(RomData &romData)
 		case 27: return new VRC2_4();
 		case 28: return new Action53();
 		case 29: return new SealieComputing();
-		case 30: return new UnRom512();
+		case 30: return new GBDK8x8(); //return new UnRom512();
 		case 31: return new NsfCart31();
 		case 32: return new IremG101();
 		case 33: return new TaitoTc0190();
@@ -383,6 +384,7 @@ BaseMapper* MapperFactory::GetMapperFromID(RomData &romData)
 		case 95: return new Namco108_95();
 		case 96: return new OekaKids();
 		case 97: return new IremTamS1();
+		case 98: return new GBDK8x8();
 		case 99: return new VsSystem();
 		case 101: return new JalecoJfxx(true);
 		case 103: return new Mapper103();
@@ -511,6 +513,7 @@ BaseMapper* MapperFactory::GetMapperFromID(RomData &romData)
 		case 244: return new Mapper244();
 		case 245: return new MMC3_245();
 		case 246: return new Mapper246();
+		case 248: return new GBDK8x8();
 		case 249: return new MMC3_249();
 		case 250: return new MMC3_250();
 		case 252: return new Waixing252();

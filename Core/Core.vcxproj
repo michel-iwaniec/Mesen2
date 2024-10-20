@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NES\Mappers\Homebrew\gbdk8x8.h" />
     <ClInclude Include="GBA\GbaCpuMultiply.h" />
     <ClInclude Include="NES\Epsm.h" />
     <ClInclude Include="NES\Mappers\Homebrew\Rainbow.h" />
