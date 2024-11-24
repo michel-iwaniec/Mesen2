@@ -206,7 +206,10 @@ namespace Mesen.Windows
 			_timerBackgroundFlag.Interval = TimeSpan.FromMilliseconds(100);
 			_timerBackgroundFlag.Tick += timerUpdateBackgroundFlag;
 			_timerBackgroundFlag.Start();
-			
+
+			//Force focus on window itself, to avoid menu being given focus by default
+			Focus();
+
 			Task.Run(() => {
 				CommandLineHelper cmdLine = new CommandLineHelper(Program.CommandLineArgs, true);
 				_cmdLine = cmdLine;
@@ -461,6 +464,13 @@ namespace Mesen.Windows
 			Size finalSize = _rendererSize == default ? _rendererPanel.Bounds.Size : _rendererSize;
 			double height = finalSize.Height;
 			double width = finalSize.Height * aspectRatio;
+			if(Math.Round(width) > Math.Round(finalSize.Width)) {
+				//Use renderer width to calculate the height instead of the opposite
+				//when current window dimensions would cause cropping horizontally
+				//if the screen width was calculated based on the height.
+				width = finalSize.Width;
+				height = width / aspectRatio;
+			}
 
 			if(ConfigManager.Config.Video.FullscreenForceIntegerScale && VisualRoot is Window wnd && (wnd.WindowState == WindowState.FullScreen || wnd.WindowState == WindowState.Maximized)) {
 				FrameInfo baseSize = EmuApi.GetBaseScreenSize();
