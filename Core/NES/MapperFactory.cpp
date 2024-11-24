@@ -26,7 +26,7 @@
 #include "NES/Mappers/Homebrew/SealieComputing.h"
 #include "NES/Mappers/Homebrew/UnRom512.h"
 #include "NES/Mappers/Homebrew/UnlDripGame.h"
-#include "NES/Mappers/Homebrew/GBDK8x8.h"
+#include "NES/Mappers/Homebrew/gbdk8x8.h"
 #include "NES/Mappers/Irem/BnRom.h"
 #include "NES/Mappers/Irem/IremG101.h"
 #include "NES/Mappers/Irem/IremH3001.h"
