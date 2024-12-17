@@ -312,7 +312,7 @@ BaseMapper* MapperFactory::GetMapperFromID(RomData &romData)
 		case 27: return new VRC2_4();
 		case 28: return new Action53();
 		case 29: return new SealieComputing();
-		case 30: return new GBDK8x8(); //return new UnRom512();
+		case 30: return new UnRom512();
 		case 31: return new NsfCart31();
 		case 32: return new IremG101();
 		case 33: return new TaitoTc0190();
